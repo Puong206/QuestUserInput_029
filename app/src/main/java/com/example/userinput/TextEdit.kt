@@ -16,6 +16,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
+import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.setValue
 import androidx.compose.runtime.getValue
@@ -79,7 +80,7 @@ fun FormDataDiri(modifier: Modifier = Modifier
             }
         )
 
-        Divider(
+        VerticalDivider(
             modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium),
                 top = dimensionResource(R.dimen.padding_medium)),
             thickness = dimensionResource(R.dimen.divider_tipis),
@@ -97,7 +98,7 @@ fun FormDataDiri(modifier: Modifier = Modifier
             Text(text = stringResource(R.string.submit))
         }
 
-        Divider(
+        VerticalDivider(
             modifier = Modifier.padding(bottom = dimensionResource(R.dimen.padding_medium),
                 top = dimensionResource(R.dimen.padding_medium)),
             thickness = dimensionResource(R.dimen.divider_tipis),
