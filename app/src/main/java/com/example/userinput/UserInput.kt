@@ -162,6 +162,7 @@ fun Register(modifier: Modifier = Modifier)
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
                     )
+                    Spacer(modifier=Modifier.height(16.dp))
                 }
             }
         }
