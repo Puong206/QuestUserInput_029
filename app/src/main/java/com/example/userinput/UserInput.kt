@@ -103,7 +103,7 @@ fun Register(modifier: Modifier = Modifier)
             .background(
                 brush = Brush.verticalGradient(
                     colors = listOf(
-                        Color(0x0A3981).copy(alpha = 0.8f),
+                        Color(0xFF0A3981).copy(alpha = 0.8f),
                         Color(0xFF191414).copy(alpha = 0.8f),
                         Color(0xFF000000)
                     )
