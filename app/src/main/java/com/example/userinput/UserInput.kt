@@ -1,6 +1,7 @@
 package com.example.userinput
 
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -16,3 +17,7 @@ val PlusJakartaSans = FontFamily(
 )
 
 @Composable
+fun Register(modifier: Modifier = Modifier)
+{
+
+}
