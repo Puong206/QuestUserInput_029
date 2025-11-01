@@ -153,8 +153,15 @@ fun Register(modifier: Modifier = Modifier)
                             .fillMaxWidth()
                             //.background(color = alpha(0.25f))
                     )
-                    Spacer(modifier=Modifier.height(4.dp))
-
+                    Spacer(modifier=Modifier.height(16.dp))
+                    TextField(
+                        value = textAsal,
+                        singleLine = true,
+                        label = { Text(text = "Kota Asal") },
+                        onValueChange = { textAsal = it },
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.fillMaxWidth()
+                    )
                 }
             }
         }
