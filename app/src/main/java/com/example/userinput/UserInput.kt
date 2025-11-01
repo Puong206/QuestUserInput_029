@@ -153,6 +153,8 @@ fun Register(modifier: Modifier = Modifier)
                             .fillMaxWidth()
                             //.background(color = alpha(0.25f))
                     )
+                    Spacer(modifier=Modifier.height(4.dp))
+
                 }
             }
         }
