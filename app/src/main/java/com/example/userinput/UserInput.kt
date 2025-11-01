@@ -1,5 +1,9 @@
 package com.example.userinput
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -9,6 +13,8 @@ import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 
 val PlusJakartaSans = FontFamily(
     Font(R.font.plusjakartasans_extralight, FontWeight.ExtraLight),
@@ -39,5 +45,19 @@ fun Register(modifier: Modifier = Modifier)
     var usia by remember { mutableStateOf("") }
     val gender by remember { mutableStateOf("") }
 
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        Color(0x0A3981).copy(alpha = 0.8f),
+                        Color(0xFF191414).copy(alpha = 0.8f),
+                        Color(0xFF000000)
+                    )
+                )
+            )
+    ) {
 
+    }
 }
