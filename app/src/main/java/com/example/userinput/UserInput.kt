@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,7 +27,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import android.graphics.Color.alpha
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 
 val PlusJakartaSans = FontFamily(
     Font(R.font.plusjakartasans_extralight, FontWeight.ExtraLight),
@@ -113,14 +118,43 @@ fun Register(modifier: Modifier = Modifier)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(48.dp),
-            verticalArrangement = Arrangement.SpaceBetween
+                .padding(top = 68.dp, start = 20.dp, end = 20.dp, bottom = 40.dp),
+            verticalArrangement = Arrangement.SpaceBetween,
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
+            Text(text = "Register Form",
+                color = Color.White,
+                fontSize = 28.sp,
+                fontFamily = PlusJakartaSans,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier.padding(bottom = 24.dp)
+            )
+
             GlassCard(
                 modifier = Modifier
                     .fillMaxSize()
                     .align(Alignment.CenterHorizontally)
-            ) {  }
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    TextField(
+                        value = textNama,
+                        singleLine = true,
+                        label = { Text(text = "Nama") },
+                        onValueChange = { textNama = it },
+                        shape = RoundedCornerShape(12.dp),
+                        colors = TextFieldDefaults.colors(
+
+                        ),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            //.background(color = alpha(0.25f))
+                    )
+                }
+            }
         }
     }
 }
