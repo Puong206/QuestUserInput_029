@@ -1,5 +1,6 @@
 package com.example.userinput
 
+import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -85,9 +86,25 @@ fun GlassCard(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Register(modifier: Modifier = Modifier,
-             onDateSelected: () -> Unit,
-             onDismiss: () -> Unit)
+fun CustomDatePicker(
+    modifier: Modifier = Modifier
+) {
+    val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
+    Column(
+        modifier = modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
+    ) {
+        DatePicker(
+            state = state
+        )
+        Text("Selected: ${state.selectedDateMillis}")
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun Registrasi(modifier: Modifier = Modifier)
 {
     var textNama by remember { mutableStateOf("") }
     var textAsal by remember { mutableStateOf("") }
@@ -99,12 +116,14 @@ fun Register(modifier: Modifier = Modifier,
 
     var nama by remember { mutableStateOf("") }
     var asal by remember { mutableStateOf("") }
-    val tgl = rememberDatePickerState()
+    val tgl by remember { mutableStateOf("") }
     var showDatePicker by remember { mutableStateOf(false) }
     var rt by remember { mutableStateOf("") }
     var rw by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
     val gender by remember { mutableStateOf("") }
+    val datePickerState = rememberDatePickerState()
+    val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
 
     Box(
         modifier = Modifier
@@ -172,27 +191,20 @@ fun Register(modifier: Modifier = Modifier,
                         verticalAlignment = Alignment.Bottom,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-                        DatePickerDialog(
-                            onDismissRequest = onDismiss,
-                            confirmButton = {
-                                TextButton(onClick = {
-                                    onDateSelected()
-                                    onDismiss()
-                                }) {
-                                    Text("Ok")
-                                }
-                            },
-                            dismissButton = {
-                                TextButton(onClick = onDismiss) {
-                                    Text("Cancel")
-                                }
-                            }
-                        ) {
-                            DatePicker(state = tgl)
-                        }
+
+
+                        TextField(
+                            value = textTgl,
+                            onValueChange = {},
+                            readOnly = true,
+                            label = { Text("Tanggal Lahir")},
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.clickable {showDatePicker = true}
+                        )
                     }
                 }
             }
+
         }
     }
 }
