@@ -62,13 +62,13 @@ fun GlassCard(
                         Color.White.copy(alpha = 0.1f)
                     )
                 ),
-                shape = RoundedCornerShape(20.dp)
+                shape = RoundedCornerShape(24.dp)
             ),
                 colors = CardDefaults.cardColors(
                     containerColor =  Color.Transparent
                 ),
                 elevation = CardDefaults.cardElevation(
-                    defaultElevation = 8.dp
+                    defaultElevation = 0.dp
                 )
             ) {
         Column(
@@ -113,12 +113,12 @@ fun Register(modifier: Modifier = Modifier)
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(24.dp),
+                .padding(48.dp),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             GlassCard(
                 modifier = Modifier
-                    .size(320.dp)
+                    .fillMaxSize()
                     .align(Alignment.CenterHorizontally)
             ) {  }
         }
