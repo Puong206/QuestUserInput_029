@@ -32,11 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.compose.ui.window.Popup
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -123,34 +126,31 @@ fun Registrasi(modifier: Modifier = Modifier)
     var showDatePicker by remember { mutableStateOf(false) }
     val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
 
-    if (isDatePickerOpen) {
+    if (showDatePicker) {
         DatePickerDialog(
-            onDismissRequest = { isDatePickerOpen = false },
+            onDismissRequest = { showDatePicker = false },
             confirmButton = {
                 TextButton(
-                    onClick = { isDatePickerOpen = false }
+                    onClick = {
+                        showDatePicker = false
+                        datePickerState.selectedDateMillis?.let {
+                            textTgl = convertMillisToDate(it)
+                        }
+                    }
                 ) {
                     Text(text = "Pilih")
                 }
             },
             dismissButton = {
                 TextButton(
-                    onClick = { isDatePickerOpen = false }
+                    onClick = { showDatePicker = false }
                 ) {
                     Text(text = "Batal")
                 }
-            },
-            content = {
-                DatePicker(
-                    state = state,
-                    showModeToggle = true,
-                    title = {
-                        Text(text = "Tanggal Lahir",
-                            modifier = Modifier.padding(16.dp))
-                    }
-                )
             }
-        )
+        ) {
+            DatePicker(state = datePickerState)
+        }
     }
 
     Box(
@@ -220,20 +220,43 @@ fun Registrasi(modifier: Modifier = Modifier)
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
                         TextField(
-                            value = selectedDate,
+                            value = textTgl,
                             onValueChange = {},
                             label = {Text("Tanggal Lahir")},
                             readOnly = true,
                             shape = RoundedCornerShape(12.dp),
                             trailingIcon = {
-                                IconButton(onClick = {showDatePicker = !showDatePicker}) {
+                                IconButton(onClick = {showDatePicker = true}) {
                                     Icon(
                                         Icons.Default.DateRange, contentDescription = "Pilih Tanggal"
                                     )}
                             },
-                            modifier = Modifier
-                                .fillMaxWidth()
+                            modifier = Modifier.fillMaxWidth()
                         )
+
+                        if (showDatePicker) {
+                            Popup(
+                                onDismissRequest = { showDatePicker = false },
+                                alignment = Alignment.TopStart
+                            ) {
+                                Box(
+                                    modifier = Modifier
+                                        //.fillMaxWidth()
+                                        //.offset(y = 50.dp)
+                                        //.shadow(elevation = 4.dp)
+                                        //.background(MaterialTheme.colorScheme.surface)
+                                        .padding(top = 68.dp, start = 20.dp, end = 20.dp, bottom = 40.dp)
+                                ) {
+                                    DatePicker(
+                                        state = datePickerState,
+                                        showModeToggle = false,
+                                        modifier = Modifier
+                                            .fillMaxWidth()
+                                            .shadow(elevation = 4.dp)
+                                    )
+                                }
+                            }
+                        }
                     }
                     Column (
                         modifier = Modifier.fillMaxSize(),
