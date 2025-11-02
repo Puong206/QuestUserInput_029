@@ -1,9 +1,7 @@
 package com.example.userinput
 
-import android.provider.Settings
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -33,15 +31,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.ui.Alignment
-import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.compose.ui.window.Popup
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -122,12 +117,9 @@ fun Registrasi(modifier: Modifier = Modifier)
     var usia by remember { mutableStateOf("") }
     val gender:List<String> = listOf("Laki-laki", "Perempuan")
     val datePickerState = rememberDatePickerState()
-    //val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
-    //var selectedDate by remember { mutableStateOf<Long?>(null) }
-    //var showModal by remember { mutableStateOf(false) }
+    var showSuccessDialog by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
-    //val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
 
     if (showDatePicker) {
         DatePickerDialog(
@@ -154,6 +146,20 @@ fun Registrasi(modifier: Modifier = Modifier)
         ) {
             DatePicker(state = datePickerState)
         }
+    }
+
+    if (showSuccessDialog) {
+        AlertDialog(
+            onDismissRequest = { showSuccessDialog = false },
+            icon = {Icon(Icons.Default.Check, contentDescription = null)},
+            title = { Text(text = "Berhasil")},
+            text = { Text(text = "Data berhasil disimpan") },
+            confirmButton = {
+                TextButton(onClick = { showSuccessDialog = false }) {
+                    Text("OK")
+                }
+            }
+        )
     }
 
     Box(
@@ -312,7 +318,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 }
                             }
                         }
-                        Spacer(modifier=Modifier.height(8.dp))
+                        Spacer(modifier=Modifier.height(210.dp))
                         Row (
                             modifier = Modifier
                                 .fillMaxWidth(),
@@ -332,14 +338,16 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 color = Color.White,
                                 fontSize = 16.sp,
                                 fontFamily = PlusJakartaSans,
-                                fontWeight = FontWeight.Medium
+                                fontWeight = FontWeight.Normal
                             )
                         }
 
-                        Spacer(modifier=Modifier.height(220.dp))
+                        Spacer(modifier=Modifier.height(20.dp))
 
                         ElevatedButton(
-                            enabled = checked,
+                            enabled = checked && textNama.isNotEmpty() &&
+                                    textAsal.isNotEmpty() && textRt.isNotEmpty() &&
+                                    textRw.isNotEmpty() && textTgl.isNotEmpty(),
                             colors = ButtonDefaults.buttonColors(
                                 containerColor = Color(0xFF0A3981),
                                 contentColor = Color.White
@@ -351,6 +359,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 rt = textRt
                                 rw = textRw
                                 usia = textUsia
+                                showSuccessDialog = true
                             }
 
                         ) {
