@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -30,9 +32,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 
 val PlusJakartaSans = FontFamily(
     Font(R.font.plusjakartasans_extralight, FontWeight.ExtraLight),
@@ -84,22 +91,9 @@ fun GlassCard(
     }
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun CustomDatePicker(
-    modifier: Modifier = Modifier
-) {
-    val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        DatePicker(
-            state = state
-        )
-        Text("Selected: ${state.selectedDateMillis}")
-    }
+private fun convertMillisToDate(millis: Long): String {
+    val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    return formatter.format(Date(millis))
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -117,13 +111,47 @@ fun Registrasi(modifier: Modifier = Modifier)
     var nama by remember { mutableStateOf("") }
     var asal by remember { mutableStateOf("") }
     val tgl by remember { mutableStateOf("") }
-    var showDatePicker by remember { mutableStateOf(false) }
+    var isDatePickerOpen by remember { mutableStateOf(false) }
     var rt by remember { mutableStateOf("") }
     var rw by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
     val gender by remember { mutableStateOf("") }
     val datePickerState = rememberDatePickerState()
     val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
+    //var selectedDate by remember { mutableStateOf<Long?>(null) }
+    var showModal by remember { mutableStateOf(false) }
+    var showDatePicker by remember { mutableStateOf(false) }
+    val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
+
+    if (isDatePickerOpen) {
+        DatePickerDialog(
+            onDismissRequest = { isDatePickerOpen = false },
+            confirmButton = {
+                TextButton(
+                    onClick = { isDatePickerOpen = false }
+                ) {
+                    Text(text = "Pilih")
+                }
+            },
+            dismissButton = {
+                TextButton(
+                    onClick = { isDatePickerOpen = false }
+                ) {
+                    Text(text = "Batal")
+                }
+            },
+            content = {
+                DatePicker(
+                    state = state,
+                    showModeToggle = true,
+                    title = {
+                        Text(text = "Tanggal Lahir",
+                            modifier = Modifier.padding(16.dp))
+                    }
+                )
+            }
+        )
+    }
 
     Box(
         modifier = Modifier
@@ -191,16 +219,39 @@ fun Registrasi(modifier: Modifier = Modifier)
                         verticalAlignment = Alignment.Bottom,
                         horizontalArrangement = Arrangement.SpaceBetween
                     ) {
-
-
                         TextField(
-                            value = textTgl,
+                            value = selectedDate,
                             onValueChange = {},
+                            label = {Text("Tanggal Lahir")},
                             readOnly = true,
-                            label = { Text("Tanggal Lahir")},
                             shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.clickable {showDatePicker = true}
+                            trailingIcon = {
+                                IconButton(onClick = {showDatePicker = !showDatePicker}) {
+                                    Icon(
+                                        Icons.Default.DateRange, contentDescription = "Pilih Tanggal"
+                                    )}
+                            },
+                            modifier = Modifier
+                                .fillMaxWidth()
                         )
+                    }
+                    Column (
+                        modifier = Modifier.fillMaxSize(),
+                        verticalArrangement = Arrangement.Center,
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        val items = List(20) {"@$it"}
+                        LazyColumn {
+                            items(items, key = { item -> item}) {
+                                item ->
+                                Text(text = item,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .clickable{}
+                                        .padding(16.dp)
+                                )
+                            }
+                        }
                     }
                 }
             }
