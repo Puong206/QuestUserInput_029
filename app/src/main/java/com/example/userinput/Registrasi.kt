@@ -110,7 +110,7 @@ fun Registrasi(modifier: Modifier = Modifier)
 
     var nama by remember { mutableStateOf("") }
     var asal by remember { mutableStateOf("") }
-    val tgl by remember { mutableStateOf("") }
+    var tgl by remember { mutableStateOf("") }
     var rt by remember { mutableStateOf("") }
     var rw by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
@@ -119,6 +119,17 @@ fun Registrasi(modifier: Modifier = Modifier)
     var showSuccessDialog by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var checked by remember { mutableStateOf(false) }
+
+    fun clearData() {
+        textNama = ""
+        textAsal = ""
+        textTgl = ""
+        textRt = ""
+        textRw = ""
+        textUsia = ""
+        textGender = ""
+        checked = false
+    }
 
     if (showDatePicker) {
         DatePickerDialog(
@@ -164,7 +175,11 @@ fun Registrasi(modifier: Modifier = Modifier)
                 }
             },
             confirmButton = {
-                TextButton(onClick = { showSuccessDialog = false }) {
+                TextButton(onClick = {
+                    showSuccessDialog = false
+                    clearData()
+                })
+                {
                     Text("OK")
                 }
             }
@@ -191,7 +206,7 @@ fun Registrasi(modifier: Modifier = Modifier)
             verticalArrangement = Arrangement.SpaceBetween,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(text = "Register Form",
+            Text(text = "Form Registrasi",
                 color = Color.White,
                 fontSize = 28.sp,
                 fontFamily = PlusJakartaSans,
@@ -212,7 +227,10 @@ fun Registrasi(modifier: Modifier = Modifier)
                     TextField(
                         value = textNama,
                         singleLine = true,
-                        label = { Text(text = "Nama") },
+                        label = { Text(text = "Nama",
+                            fontSize = 14.sp,
+                            fontFamily = PlusJakartaSans,
+                            fontWeight = FontWeight.Medium) },
                         onValueChange = { textNama = it },
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
@@ -222,7 +240,10 @@ fun Registrasi(modifier: Modifier = Modifier)
                     TextField(
                         value = textAsal,
                         singleLine = true,
-                        label = { Text(text = "Kota Asal") },
+                        label = { Text(text = "Kota Asal",
+                            fontSize = 14.sp,
+                            fontFamily = PlusJakartaSans,
+                            fontWeight = FontWeight.Medium) },
                         onValueChange = { textAsal = it },
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
@@ -286,7 +307,10 @@ fun Registrasi(modifier: Modifier = Modifier)
                         TextField(
                             value = textUsia,
                             singleLine = true,
-                            label = { Text(text = "Usia") },
+                            label = { Text(text = "Usia",
+                                fontSize = 14.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.Medium) },
                             onValueChange = { textUsia = it },
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.fillMaxWidth()
@@ -368,6 +392,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 rt = textRt
                                 rw = textRw
                                 usia = textUsia
+                                tgl = textTgl
                                 showSuccessDialog = true
                             }
 
