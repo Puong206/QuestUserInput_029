@@ -111,7 +111,6 @@ fun Registrasi(modifier: Modifier = Modifier)
     var nama by remember { mutableStateOf("") }
     var asal by remember { mutableStateOf("") }
     val tgl by remember { mutableStateOf("") }
-    var isDatePickerOpen by remember { mutableStateOf(false) }
     var rt by remember { mutableStateOf("") }
     var rw by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
@@ -153,7 +152,17 @@ fun Registrasi(modifier: Modifier = Modifier)
             onDismissRequest = { showSuccessDialog = false },
             icon = {Icon(Icons.Default.Check, contentDescription = null)},
             title = { Text(text = "Berhasil")},
-            text = { Text(text = "Data berhasil disimpan") },
+            text = {
+                Column {
+                    Text(text = "Nama: $nama")
+                    Text(text = "Asal: $asal")
+                    Text(text = "Tanggal Lahir: $tgl")
+                    Text(text = "RT: $rt")
+                    Text(text = "RW: $rw")
+                    Text(text = "Usia: $usia")
+                    Text(text = "Jenis Kelamin: $textGender")
+                }
+            },
             confirmButton = {
                 TextButton(onClick = { showSuccessDialog = false }) {
                     Text("OK")
