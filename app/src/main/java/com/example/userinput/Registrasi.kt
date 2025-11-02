@@ -33,6 +33,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.ui.Alignment
@@ -202,7 +203,6 @@ fun Registrasi(modifier: Modifier = Modifier)
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
-                            //.background(color = alpha(0.25f))
                     )
                     Spacer(modifier=Modifier.height(16.dp))
                     TextField(
@@ -217,7 +217,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                     Row (
                         modifier = Modifier.fillMaxWidth(),
                         verticalAlignment = Alignment.Bottom,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.spacedBy(4.dp)
                     ) {
                         TextField(
                             value = textTgl,
@@ -231,7 +231,9 @@ fun Registrasi(modifier: Modifier = Modifier)
                                         Icons.Default.DateRange, contentDescription = "Pilih Tanggal"
                                     )}
                             },
-                            modifier = Modifier.fillMaxWidth()
+                            //modifier = Modifier
+                              //  .width(200.dp)
+                                //.height(28.dp)
                         )
 
                         if (showDatePicker) {
@@ -241,10 +243,6 @@ fun Registrasi(modifier: Modifier = Modifier)
                             ) {
                                 Box(
                                     modifier = Modifier
-                                        //.fillMaxWidth()
-                                        //.offset(y = 50.dp)
-                                        //.shadow(elevation = 4.dp)
-                                        //.background(MaterialTheme.colorScheme.surface)
                                         .padding(top = 68.dp, start = 20.dp, end = 20.dp, bottom = 40.dp)
                                 ) {
                                     DatePicker(
@@ -257,6 +255,15 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 }
                             }
                         }
+
+                        TextField(
+                            value = textRt,
+                            singleLine = true,
+                            label = { Text(text = "RT") },
+                            onValueChange = { textRt = it },
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.weight(1f)
+                        )
                     }
                     Column (
                         modifier = Modifier.fillMaxSize(),
