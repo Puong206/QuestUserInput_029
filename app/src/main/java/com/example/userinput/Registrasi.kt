@@ -336,7 +336,30 @@ fun Registrasi(modifier: Modifier = Modifier)
                             )
                         }
 
-                        Spacer(modifier=Modifier.height(16.dp))
+                        Spacer(modifier=Modifier.height(220.dp))
+
+                        ElevatedButton(
+                            enabled = checked,
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = Color(0xFF0A3981),
+                                contentColor = Color.White
+                            ),
+                            modifier = Modifier.width(240.dp),
+                            onClick = {
+                                nama = textNama
+                                asal = textAsal
+                                rt = textRt
+                                rw = textRw
+                                usia = textUsia
+                            }
+
+                        ) {
+                            Text(text = "Submit",
+                                color = Color.White,
+                                fontSize = 20.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
             }
