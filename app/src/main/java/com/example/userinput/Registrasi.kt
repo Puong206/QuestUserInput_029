@@ -35,6 +35,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
@@ -118,13 +119,13 @@ fun Registrasi(modifier: Modifier = Modifier)
     var rt by remember { mutableStateOf("") }
     var rw by remember { mutableStateOf("") }
     var usia by remember { mutableStateOf("") }
-    val gender by remember { mutableStateOf("") }
+    val gender:List<String> = listOf("Laki-laki", "Perempuan")
     val datePickerState = rememberDatePickerState()
-    val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
+    //val state = rememberDatePickerState(initialSelectedDateMillis = System.currentTimeMillis())
     //var selectedDate by remember { mutableStateOf<Long?>(null) }
-    var showModal by remember { mutableStateOf(false) }
+    //var showModal by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
-    val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
+    //val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
 
     if (showDatePicker) {
         DatePickerDialog(
@@ -256,6 +257,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                             modifier = Modifier.width(60.dp)
                         )
                     }
+                    Spacer(modifier=Modifier.height(16.dp))
                     Column (
                         modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
@@ -269,6 +271,24 @@ fun Registrasi(modifier: Modifier = Modifier)
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.fillMaxWidth()
                         )
+
+                        Row {
+                            gender.forEach { item ->
+                                Row(modifier = Modifier.selectable(
+                                    selected = textGender == item,
+                                    onClick = { textGender = item}
+                                ), verticalAlignment = Alignment.CenterVertically) {
+                                    RadioButton(
+                                        selected = textGender == item,
+                                        onClick = { textGender = item})
+                                    Text(item,
+                                        fontSize = 16.sp,
+                                        color = Color.White,
+                                        fontFamily = PlusJakartaSans,
+                                        fontWeight = FontWeight.SemiBold)
+                                }
+                            }
+                        }
                     }
                 }
             }
