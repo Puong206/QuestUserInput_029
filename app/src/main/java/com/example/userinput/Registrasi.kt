@@ -32,7 +32,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -96,7 +95,7 @@ fun GlassCard(
 }
 
 private fun convertMillisToDate(millis: Long): String {
-    val formatter = SimpleDateFormat("dd MMMM yyyy", Locale.getDefault())
+    val formatter = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
     return formatter.format(Date(millis))
 }
 
@@ -198,13 +197,10 @@ fun Registrasi(modifier: Modifier = Modifier)
                         label = { Text(text = "Nama") },
                         onValueChange = { textNama = it },
                         shape = RoundedCornerShape(12.dp),
-                        colors = TextFieldDefaults.colors(
-
-                        ),
-                        modifier = Modifier
-                            .fillMaxWidth()
+                        modifier = Modifier.fillMaxWidth()
                     )
                     Spacer(modifier=Modifier.height(16.dp))
+
                     TextField(
                         value = textAsal,
                         singleLine = true,
@@ -213,16 +209,21 @@ fun Registrasi(modifier: Modifier = Modifier)
                         shape = RoundedCornerShape(12.dp),
                         modifier = Modifier.fillMaxWidth()
                     )
+
                     Spacer(modifier=Modifier.height(16.dp))
+
                     Row (
                         modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.Bottom,
-                        horizontalArrangement = Arrangement.spacedBy(4.dp)
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
                     ) {
                         TextField(
                             value = textTgl,
                             onValueChange = {},
-                            label = {Text("Tanggal Lahir")},
+                            label = {Text("Tanggal Lahir",
+                                fontSize = 12.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.Medium)},
                             readOnly = true,
                             shape = RoundedCornerShape(12.dp),
                             trailingIcon = {
@@ -231,38 +232,19 @@ fun Registrasi(modifier: Modifier = Modifier)
                                         Icons.Default.DateRange, contentDescription = "Pilih Tanggal"
                                     )}
                             },
-                            //modifier = Modifier
-                              //  .width(200.dp)
-                                //.height(28.dp)
+                            modifier = Modifier.width(184.dp)
                         )
-
-                        if (showDatePicker) {
-                            Popup(
-                                onDismissRequest = { showDatePicker = false },
-                                alignment = Alignment.TopStart
-                            ) {
-                                Box(
-                                    modifier = Modifier
-                                        .padding(top = 68.dp, start = 20.dp, end = 20.dp, bottom = 40.dp)
-                                ) {
-                                    DatePicker(
-                                        state = datePickerState,
-                                        showModeToggle = false,
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .shadow(elevation = 4.dp)
-                                    )
-                                }
-                            }
-                        }
 
                         TextField(
                             value = textRt,
                             singleLine = true,
-                            label = { Text(text = "RT") },
+                            label = { Text(text = "RT",
+                                fontSize = 12.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.Medium) },
                             onValueChange = { textRt = it },
                             shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.width(60.dp)
                         )
 
                         TextField(
@@ -271,26 +253,22 @@ fun Registrasi(modifier: Modifier = Modifier)
                             label = {Text(text = "RW")},
                             onValueChange = {textRw = it},
                             shape = RoundedCornerShape(12.dp),
-                            modifier = Modifier.weight(1f)
+                            modifier = Modifier.width(60.dp)
                         )
                     }
                     Column (
-                        modifier = Modifier.fillMaxSize(),
+                        modifier = Modifier.fillMaxWidth(),
                         verticalArrangement = Arrangement.Center,
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
-                        val items = List(20) {"@$it"}
-                        LazyColumn {
-                            items(items, key = { item -> item}) {
-                                item ->
-                                Text(text = item,
-                                    modifier = Modifier
-                                        .fillMaxWidth()
-                                        .clickable{}
-                                        .padding(16.dp)
-                                )
-                            }
-                        }
+                        TextField(
+                            value = textUsia,
+                            singleLine = true,
+                            label = { Text(text = "Usia") },
+                            onValueChange = { textUsia = it },
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.fillMaxWidth()
+                        )
                     }
                 }
             }
