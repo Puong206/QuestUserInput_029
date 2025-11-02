@@ -264,6 +264,15 @@ fun Registrasi(modifier: Modifier = Modifier)
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.weight(1f)
                         )
+
+                        TextField(
+                            value = textRw,
+                            singleLine = true,
+                            label = {Text(text = "RW")},
+                            onValueChange = {textRw = it},
+                            shape = RoundedCornerShape(12.dp),
+                            modifier = Modifier.weight(1f)
+                        )
                     }
                     Column (
                         modifier = Modifier.fillMaxSize(),
