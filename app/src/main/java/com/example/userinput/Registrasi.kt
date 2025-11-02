@@ -312,11 +312,12 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 }
                             }
                         }
-                        Spacer(modifier=Modifier.height(16.dp))
+                        Spacer(modifier=Modifier.height(8.dp))
                         Row (
-                            modifier = Modifier.fillMaxWidth(),
+                            modifier = Modifier
+                                .fillMaxWidth(),
                             verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                            horizontalArrangement = Arrangement.spacedBy(4.dp)
                         ) {
                             Checkbox(
                                 checked = checked,
@@ -331,13 +332,14 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 color = Color.White,
                                 fontSize = 16.sp,
                                 fontFamily = PlusJakartaSans,
-                                fontWeight = FontWeight.SemiBold
+                                fontWeight = FontWeight.Medium
                             )
                         }
+
+                        Spacer(modifier=Modifier.height(16.dp))
                     }
                 }
             }
-
         }
     }
 }
