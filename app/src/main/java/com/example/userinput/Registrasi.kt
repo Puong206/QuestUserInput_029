@@ -38,6 +38,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.selection.selectable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Popup
@@ -125,6 +126,7 @@ fun Registrasi(modifier: Modifier = Modifier)
     //var selectedDate by remember { mutableStateOf<Long?>(null) }
     //var showModal by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
+    var checked by remember { mutableStateOf(false) }
     //val selectedDate = datePickerState.selectedDateMillis?.let {convertMillisToDate(it) } ?: ""
 
     if (showDatePicker) {
@@ -222,7 +224,7 @@ fun Registrasi(modifier: Modifier = Modifier)
                             value = textTgl,
                             onValueChange = {},
                             label = {Text("Tanggal Lahir",
-                                fontSize = 12.sp,
+                                fontSize = 14.sp,
                                 fontFamily = PlusJakartaSans,
                                 fontWeight = FontWeight.Medium)},
                             readOnly = true,
@@ -240,9 +242,9 @@ fun Registrasi(modifier: Modifier = Modifier)
                             value = textRt,
                             singleLine = true,
                             label = { Text(text = "RT",
-                                fontSize = 12.sp,
+                                fontSize = 14.sp,
                                 fontFamily = PlusJakartaSans,
-                                fontWeight = FontWeight.Medium) },
+                                fontWeight = FontWeight.SemiBold) },
                             onValueChange = { textRt = it },
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.width(60.dp)
@@ -251,7 +253,10 @@ fun Registrasi(modifier: Modifier = Modifier)
                         TextField(
                             value = textRw,
                             singleLine = true,
-                            label = {Text(text = "RW")},
+                            label = {Text(text = "RW",
+                                fontSize = 14.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.SemiBold)},
                             onValueChange = {textRw = it},
                             shape = RoundedCornerShape(12.dp),
                             modifier = Modifier.width(60.dp)
@@ -272,6 +277,19 @@ fun Registrasi(modifier: Modifier = Modifier)
                             modifier = Modifier.fillMaxWidth()
                         )
 
+                        Spacer(modifier=Modifier.height(16.dp))
+
+                        Text(text = "Jenis Kelamin",
+                            textAlign = TextAlign.Left,
+                            color = Color.White,
+                            fontSize = 20.sp,
+                            fontFamily = PlusJakartaSans,
+                            fontWeight = FontWeight.SemiBold,
+                            modifier = Modifier
+                                .padding(start = 12.dp, bottom = 4.dp)
+                                .fillMaxWidth()
+                        )
+
                         Row {
                             gender.forEach { item ->
                                 Row(modifier = Modifier.selectable(
@@ -280,7 +298,12 @@ fun Registrasi(modifier: Modifier = Modifier)
                                 ), verticalAlignment = Alignment.CenterVertically) {
                                     RadioButton(
                                         selected = textGender == item,
-                                        onClick = { textGender = item})
+                                        onClick = { textGender = item},
+                                        colors = RadioButtonDefaults.colors(
+                                            selectedColor = Color.White,
+                                            unselectedColor = Color.White
+                                        )
+                                    )
                                     Text(item,
                                         fontSize = 16.sp,
                                         color = Color.White,
@@ -288,6 +311,28 @@ fun Registrasi(modifier: Modifier = Modifier)
                                         fontWeight = FontWeight.SemiBold)
                                 }
                             }
+                        }
+                        Spacer(modifier=Modifier.height(16.dp))
+                        Row (
+                            modifier = Modifier.fillMaxWidth(),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(8.dp)
+                        ) {
+                            Checkbox(
+                                checked = checked,
+                                onCheckedChange = {checked = it},
+                                colors = CheckboxDefaults.colors(
+                                    checkedColor = Color.White,
+                                    uncheckedColor = Color.White,
+                                    checkmarkColor = Color.Black
+                                )
+                            )
+                            Text(text = "Saya setuju dengan syarat dan ketentuan yang berlaku",
+                                color = Color.White,
+                                fontSize = 16.sp,
+                                fontFamily = PlusJakartaSans,
+                                fontWeight = FontWeight.SemiBold
+                            )
                         }
                     }
                 }
